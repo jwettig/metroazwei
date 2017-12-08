@@ -1,0 +1,144 @@
+%%
+%% variation of metropolis theme for the A2 collaboration
+%% ---------------------------------------------------------------------------
+%% Copyright 2015 Matthias Vogelgesang and the LaTeX community. A full list of
+%% contributors can be found at
+%% 
+%%     https://github.com/matze/mtheme/graphs/contributors
+%% 
+%% and the original template was based on the HSRM theme by Benjamin Weiss.
+%% 
+%% This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+%% International License (https://creativecommons.org/licenses/by-sa/4.0/).
+%% ---------------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamercolorthememetroazwei}[2017/12/07 metroazwei color theme]
+\RequirePackage{pgfopts}
+\pgfkeys{
+  /metroazwei/color/block/.cd,
+    .is choice,
+    transparent/.code=\metroazwei@block@transparent,
+    fill/.code=\metroazwei@block@fill,
+}
+\pgfkeys{
+  /metroazwei/color/background/.cd,
+    .is choice,
+    dark/.code=\metroazwei@colors@dark,
+    light/.code=\metroazwei@colors@light,
+}
+\newcommand{\metroazwei@color@setdefaults}{
+  \pgfkeys{/metroazwei/color/.cd,
+    background=light,
+    block=transparent,
+  }
+}
+
+\definecolor{A2red}{HTML}{c1002a}
+\definecolor{DARKteal}{HTML}{37474F}
+\definecolor{LIGHTteal}{HTML}{5F92AA}
+
+\newcommand{\metroazwei@colors@dark}{
+  \setbeamercolor{normal text}{%
+    fg=white,
+    bg=DARKteal
+  }
+  \usebeamercolor[fg]{normal text}
+}
+\newcommand{\metroazwei@colors@light}{
+  \setbeamercolor{normal text}{%
+    fg=DARKteal,
+    bg=white
+  }
+}
+\setbeamercolor{alerted text}{%
+  fg=A2red
+}
+\setbeamercolor{example text}{%
+  fg=LIGHTteal
+}
+\setbeamercolor{titlelike}{use=normal text, parent=normal text}
+\setbeamercolor{author}{use=normal text, parent=normal text}
+\setbeamercolor{date}{use=normal text, parent=normal text}
+\setbeamercolor{institute}{use=normal text, parent=normal text}
+\setbeamercolor{structure}{use=normal text, fg=normal text.fg}
+\setbeamercolor{palette primary}{%
+  fg=white,
+  bg=DARKteal!80
+}
+\setbeamercolor{frametitle}{%
+  fg=white,
+  bg=A2red
+}
+\setbeamercolor{progress bar}{%
+  use=alerted text,
+  fg=alerted text.fg,
+  bg=alerted text.fg!20!DARKteal!20
+}
+\setbeamercolor{title separator}{
+  use=progress bar,
+  parent=progress bar
+}
+\setbeamercolor{progress bar in head/foot}{%
+  use=progress bar,
+  parent=progress bar
+}
+\setbeamercolor{progress bar in section page}{
+  use=progress bar,
+  parent=progress bar
+}
+\newcommand{\metroazwei@block@transparent}{
+  \setbeamercolor{block title}{%
+    use=normal text,
+    fg=normal text.fg,
+    bg=
+  }
+  \setbeamercolor{block body}{
+    bg=
+  }
+  \setbeamercolor{block title alerted}{%
+    use={block title, alerted text},
+    bg=block title.bg,
+    fg=alerted text.fg
+  }
+  \setbeamercolor{block title example}{%
+    use={block title, example text},
+    bg=block title.bg,
+    fg=example text.fg
+  }
+}
+\newcommand{\metroazwei@block@fill}{
+  \setbeamercolor{block title}{%
+    use=normal text,
+    fg=normal text.fg,
+    bg=normal text.fg!20
+  }
+  \setbeamercolor{block body}{
+    use={block title, normal text},
+    bg=block title.bg!30
+  }
+  \setbeamercolor{block title alerted}{%
+    use={block title, alerted text},
+    bg=alerted text.fg,
+    fg=white
+  }
+  \setbeamercolor{block title example}{%
+    use={normal text, example text},
+    bg=example text.fg!50!normal text.fg!70,
+    fg=white
+  }
+}
+
+\setbeamercolor{block body alerted}{use=block body, parent=block body}
+\setbeamercolor{block body example}{use=block body, parent=block body}
+\setbeamercolor{footnote}{fg=normal text.fg!90}
+\setbeamercolor{footnote mark}{fg=.}
+\setbeamercolor{bibliography entry author}{fg=, bg=}
+\setbeamercolor{bibliography entry title}{fg=, bg=}
+\setbeamercolor{bibliography entry location}{fg=, bg=}
+\setbeamercolor{bibliography entry note}{fg=, bg=}
+\metroazwei@color@setdefaults
+\ProcessPgfPackageOptions{/metroazwei/color}
+\mode<all>
+\endinput
+%%
+%% End of file `beamercolorthememetroazwei.sty'.

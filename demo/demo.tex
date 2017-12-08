@@ -1,0 +1,271 @@
+\documentclass[
+		%fleqn, % so that equations are left and not center aligned
+		10pt
+		]{beamer}
+%\documentclass[10pt,fleqn,handout]{beamer}
+\usetheme[ % choose your options, choose wisely
+	titleformat title= regular, % regular, smallcaps, allsmallcaps, allcaps
+	titleformat frame= regular, % regular, smallcaps, allsmallcaps, allcaps
+	progressbar=frametitle,% frametitle, head, foot, none
+	numbering=fraction,% counter, fraction, none
+	block=fill,% fill, transparent
+	sectionpage=progressbar,% none, simple, progressbar
+	%
+	]{metroazwei}
+%
+%%%------------- setup footer content -------------%
+\setbeamertemplate{frame footer}{
+	\insertauthor
+	\hspace{1.5ex}-\hspace{1.5ex} 
+	\insertshorttitle
+	\ifx\insertsection\empty\else
+		\hspace{1.5ex}-\hspace{1.5ex}\insertsection
+	\fi
+}
+%
+%%%------------- packages -------------%
+\usepackage[scale=2]{ccicons} % creative commons icons
+\usepackage{booktabs} % better tables
+
+
+%%%------------- title -------------%
+\title[Metropolis A2] % short title
+			{Metropolis theme for the A2 Collaboration} % long title
+\subtitle{because we're all using different presentations so far}
+\date{Mainz, December 2017}
+\author{John Doe}
+\institute[JGU Mainz]{
+	Institute for Nuclear Physics\\ 
+	Johannes Gutenberg University of Mainz\\ 
+}
+\newcommand{\logoheight}{1.0cm}
+\newcommand{\logospace}{\hspace*{2mm}}
+\titlegraphic{
+	\includegraphics[height=\logoheight]{a2logo_light.pdf}
+}
+
+%%------------- TALK -------------%
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Outline}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+\section{Introduction \& Installation}
+
+\begin{frame}{Metropolis A2 Theme}
+	This theme is based upon the Beamer theme Metropolis by Matthias Vogelgesang, Get the original theme at:
+	\begin{center}\url{github.com/matze/mtheme}\end{center}
+	
+	The theme \emph{itself} is licensed under a
+	\href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons
+		Attribution-ShareAlike 4.0 International License}.
+	
+	\begin{center}\ccbysa\end{center}
+	
+	This theme is intended to be used with Mozilla's \emph{Fira Sans} font and to be compiled with XeTeX. If you don't have the font installed it will fallback to the standard font.
+\end{frame}
+
+\begin{frame}[fragile]{Installation}
+To be able to use the theme alongside the original metropolis theme it is renamed to \alert{metroazwei}. Just download the github zip or git clone it into your home folder:
+\begin{verbatim}
+~/texmf/tex/latex/metroazwei
+\end{verbatim}
+Then you can use it in any beamer presentation like this:
+\begin{verbatim}
+\documentclass[10pt]{beamer}
+\usetheme[]{metroazwei}
+\end{verbatim}
+Take a look into this demo pdf for different options or even better take a look at the original documentation of metropolis.
+\end{frame}
+
+\section{Title formats}
+
+\begin{frame}{Title formats}
+	This theme supports 4 different title formats:
+	\begin{itemize}
+		\item Regular
+		\item \textsc{Small caps}
+		\item \textsc{all small caps}
+		\item ALL CAPS
+	\end{itemize}
+	They can either be set at once for every title type or individually.
+\end{frame}
+
+{
+\metroset{titleformat frame=smallcaps}
+	\begin{frame}{Small caps}
+		This frame uses the \texttt{smallcaps} title format.
+		\vspace{5mm}
+		\begin{alertblock}{Potential Problems}
+			Be aware that not every font supports small caps. If for example you typeset your presentation with pdfTeX and the Computer Modern Sans Serif font, every text in small caps will be typeset with the Computer Modern Serif font instead.
+		\end{alertblock}
+	\end{frame}
+}
+
+\section{Elements}
+
+\begin{frame}[fragile]{Typography}
+	\begin{verbatim}
+The theme provides sensible defaults to
+\emph{emphasize} text, \alert{accent} parts
+or show \textbf{bold} results.\end{verbatim}
+	\begin{center}becomes\end{center}
+	The theme provides sensible defaults to \emph{emphasize} text,
+	\alert{accent} parts or show \textbf{bold} results.
+\end{frame}
+
+\begin{frame}[fragile]{Colours}
+	You can use some colours defined in the theme:
+	
+	These are \textbf{\textcolor{A2red}{A2red}}, \textbf{\textcolor{DARKteal}{DARKteal}} and \textbf{\textcolor{LIGHTteal}{LIGHTteal}}.
+	
+	All colours in this theme are derived from these colours (well, including white).
+\end{frame}
+
+\begin{frame}{Font feature test}
+	\begin{itemize}
+		\item Regular
+		\item \textit{Italic}
+		\item \textsc{Small Caps}
+		\item \textbf{Bold}
+		\item \textbf{\textit{Bold Italic}}
+		\item \textbf{\textsc{Bold Small Caps}}
+		\item \texttt{Monospace}
+		\item \texttt{\textit{Monospace Italic}}
+		\item \texttt{\textbf{Monospace Bold}}
+		\item \texttt{\textbf{\textit{Monospace Bold Italic}}}
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Tables}
+	Use the booktabs package for nicer tables
+	\begin{table}
+		\caption{Largest cities in the world (source: Wikipedia)}
+		\begin{tabular}{@{} lr @{}}
+		\toprule
+		City & Population\\
+		\midrule
+		Mexico City & 20,116,842\\
+		Shanghai & 19,210,000\\
+		Peking & 15,796,450\\
+		Istanbul & 14,160,467\\
+		\bottomrule
+		\end{tabular}
+	\end{table}
+\end{frame}
+
+\begin{frame}{Blocks}
+Three different block environments are pre-defined and may be styled with an
+optional background color.
+\begin{columns}[T,onlytextwidth]
+	\column{0.47\textwidth}
+	\metroset{block=transparent}
+		\begin{block}{Default}
+		Block content.
+		\end{block}
+		
+		\begin{alertblock}{Alert}
+		Block content.
+		\end{alertblock}
+		
+		\begin{exampleblock}{Example}
+		Block content.
+		\end{exampleblock}
+
+	\column{0.47\textwidth}
+	
+		\metroset{block=fill}
+	
+		\begin{block}{Default}
+		Block content.
+		\end{block}
+		
+		\begin{alertblock}{Alert}
+		Block content.
+		\end{alertblock}
+		
+		\begin{exampleblock}{Example}
+		Block content.
+		\end{exampleblock}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Footer}
+In your presentation you can set the footer to display information about you and your talk. A sample footer is this:
+\begin{verbatim}
+\setbeamertemplate{frame footer}{
+\insertauthor
+\hspace{1.5ex}-\hspace{1.5ex} 
+\insertshorttitle
+\ifx\insertsection\empty\else
+\hspace{1.5ex}-\hspace{1.5ex}\insertsection
+\fi
+}\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Titlepage logos}
+In order to display one or several logos on your titlepage (for example institute, sponsor, collaboration,...) you can use the \emph{titlegraphic} environment. It's useful to set logoheight and space between logos globally:
+\begin{verbatim}
+\newcommand{\logoheight}{1.0cm}
+\newcommand{\logospace}{\hspace*{2mm}}
+\titlegraphic{
+\includegraphics[height=\logoheight]{img/logo1.pdf}
+\logospace
+\includegraphics[height=\logoheight]{img/logo2.pdf}
+\logospace
+\includegraphics[height=\logoheight]{img/logo3.pdf}
+}\end{verbatim}
+
+\end{frame}
+
+\section{A2 Logo}
+
+\begin{frame}[fragile]{A2 Logo}
+To change the A2 Logo in the upper right corner you need to edit the theme file
+\begin{verbatim}beamerouterthememetroazwei.sty\end{verbatim} at lines 98 - 100:
+\begin{verbatim}
+\begin{tikzpicture}[remember picture,overlay]
+\node[anchor=north east,yshift=-0.6mm,xshift=-0.5mm]
+at (current page.north east){\includegraphics
+[height=0.6cm]{a2logo_white.pdf}};
+\end{tikzpicture}\end{verbatim}
+But be aware that this changes all presentations which will be compiled with this theme.
+\end{frame}
+
+\section{Fancy frames}
+
+\begin{frame}[fragile]
+You can use this:
+\begin{verbatim}
+\begin{frame}[plain, standout]
+I'm a simple slide to emphasize something important.
+\end{frame}\end{verbatim}
+to get \dots
+\end{frame}
+
+\begin{frame}[plain, standout]
+	I'm a simple slide to emphasize something important.
+\end{frame}
+
+\section{Conclusion}
+
+\begin{frame}{Where to find me}
+Get the theme at:
+\begin{center}\url{github.com/A2-Collaboration-dev/metroa2}\end{center}
+
+The theme \emph{itself} is licensed under a
+\href{http://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons
+	Attribution-ShareAlike 4.0 International License}.
+
+\begin{center}\ccbysa\end{center}
+
+\end{frame}
+
+
+\end{document}

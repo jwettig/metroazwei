@@ -1,0 +1,137 @@
+%%
+%% variation of metropolis theme for the A2 collaboration
+%% ---------------------------------------------------------------------------
+%% Copyright 2015 Matthias Vogelgesang and the LaTeX community. A full list of
+%% contributors can be found at
+%% 
+%%     https://github.com/matze/mtheme/graphs/contributors
+%% 
+%% and the original template was based on the HSRM theme by Benjamin Weiss.
+%% 
+%% This work is licensed under a Creative Commons Attribution-ShareAlike 4.0
+%% International License (https://creativecommons.org/licenses/by-sa/4.0/).
+%% ---------------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerouterthememetroazwei}[2017/12/07 metroazwei outer theme]
+\RequirePackage{etoolbox}
+\RequirePackage{calc}
+\RequirePackage{pgfopts}
+\pgfkeys{
+  /metroazwei/outer/numbering/.cd,
+    .is choice,
+    none/.code=\setbeamertemplate{frame numbering}[none],
+    counter/.code=\setbeamertemplate{frame numbering}[counter],
+    fraction/.code=\setbeamertemplate{frame numbering}[fraction],
+}
+\pgfkeys{
+  /metroazwei/outer/progressbar/.cd,
+    .is choice,
+    none/.code={%
+      \setbeamertemplate{headline}[plain]
+      \setbeamertemplate{frametitle}[plain]
+      \setbeamertemplate{footline}[plain]
+    },
+    head/.code={\pgfkeys{/metroazwei/outer/progressbar=none}
+      \addtobeamertemplate{headline}{}{%
+        \usebeamertemplate*{progress bar in head/foot}
+      }
+    },
+    frametitle/.code={\pgfkeys{/metroazwei/outer/progressbar=none}
+      \addtobeamertemplate{frametitle}{}{%
+        \usebeamertemplate*{progress bar in head/foot}
+      }
+    },
+    foot/.code={\pgfkeys{/metroazwei/outer/progressbar=none}
+      \addtobeamertemplate{footline}{}{%
+        \usebeamertemplate*{progress bar in head/foot}%
+      }
+    },
+}
+\newcommand{\metroazwei@outer@setdefaults}{
+  \pgfkeys{/metroazwei/outer/.cd,
+    numbering=counter,
+    progressbar=none,
+  }
+}
+\setbeamertemplate{navigation symbols}{}
+\defbeamertemplate{frame footer}{none}{}
+\defbeamertemplate{frame footer}{custom}[1]{ #1 }
+\defbeamertemplate{frame numbering}{none}{}
+\defbeamertemplate{frame numbering}{counter}{\insertframenumber}
+\defbeamertemplate{frame numbering}{fraction}{
+  \insertframenumber/\inserttotalframenumber
+}
+\defbeamertemplate{headline}{plain}{}
+\defbeamertemplate{footline}{plain}{%
+  \begin{beamercolorbox}[wd=\textwidth, sep=2ex]{footline}% changed sep from 3ex
+    \usebeamerfont{page number in head/foot}%
+    \usebeamertemplate*{frame footer}
+    \hfill%
+    \usebeamertemplate*{frame numbering}
+  \end{beamercolorbox}%
+}
+\newlength{\metroazwei@frametitle@padding}
+\setlength{\metroazwei@frametitle@padding}{2.2ex}
+\newcommand{\metroazwei@frametitlestrut@start}{
+  \rule{0pt}{\metroazwei@frametitle@padding +%
+    \totalheightof{%
+      \ifcsdef{metroazwei@frametitleformat}{\metroazwei@frametitleformat X}{X}%
+    }%
+  }%
+}
+\newcommand{\metroazwei@frametitlestrut@end}{
+  \rule[-\metroazwei@frametitle@padding]{0pt}{\metroazwei@frametitle@padding}
+}
+\defbeamertemplate{frametitle}{plain}{%
+  \nointerlineskip%
+  \begin{beamercolorbox}[%
+      wd=\paperwidth,%
+      sep=0pt,%
+      leftskip=\metroazwei@frametitle@padding,%
+      rightskip=\metroazwei@frametitle@padding,%
+    ]{frametitle}%
+  \metroazwei@frametitlestrut@start%
+  \insertframetitle%
+  \nolinebreak%
+  \metroazwei@frametitlestrut@end%
+    %
+    \begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=north east,yshift=-0.6mm,xshift=-0.5mm] at (current page.north east){\includegraphics[height=0.6cm]{a2logo_white.pdf}};
+	\end{tikzpicture}
+    %
+  \end{beamercolorbox}%
+}
+\setbeamertemplate{frametitle continuation}{%
+  \usebeamerfont{frametitle}
+  \romannumeral \insertcontinuationcount
+}
+\newlength{\metroazwei@progressinheadfoot}
+\newlength{\metroazwei@progressinheadfoot@linewidth}
+\setlength{\metroazwei@progressinheadfoot@linewidth}{0.8pt}% changed from 0.4
+\setbeamertemplate{progress bar in head/foot}{
+  \nointerlineskip
+  \setlength{\metroazwei@progressinheadfoot}{%
+    \paperwidth * \ratio{\insertframenumber pt}{\inserttotalframenumber pt}%
+  }%
+  \begin{beamercolorbox}[wd=\paperwidth]{progress bar in head/foot}
+    \tikzexternaldisable%
+    \begin{tikzpicture}
+      \fill[bg] (0,0) rectangle (\paperwidth, \metroazwei@progressinheadfoot@linewidth);
+      \fill[fg] (0,0) rectangle (\metroazwei@progressinheadfoot, \metroazwei@progressinheadfoot@linewidth);
+    \end{tikzpicture}%
+    \tikzexternalenable%
+  \end{beamercolorbox}
+}
+\AtBeginDocument{%
+  \apptocmd{\appendix}{%
+    \pgfkeys{%
+      /metroazwei/outer/.cd,
+      numbering=none,
+      progressbar=none}
+    }{}{}
+}
+\metroazwei@outer@setdefaults
+\ProcessPgfPackageOptions{/metroazwei/outer}
+\endinput
+%%
+%% End of file `beamerouterthememetroazwei.sty'.
