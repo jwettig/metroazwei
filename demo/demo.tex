@@ -26,13 +26,74 @@
 %%%------------- packages -------------%
 \usepackage[scale=2]{ccicons} % creative commons icons
 \usepackage{booktabs} % better tables
+\usepackage{pifont} % for to do list
+\usepackage{mdframed} % for more boxes
 
+%%%------------- ToDoList -------------%
+%\usepackage{pifont} %important!
+\newcommand{\cmark}{\textcolor{A2green}{\ding{51}}}%
+\newcommand{\xmark}{\textcolor{A2red}{\ding{55}}}%
+\newcommand{\done}{\rlap{$\square$}{\raisebox{1.5pt}{\large\hspace{1pt}\cmark}}\hspace{-2.2pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{.5pt}\xmark}\hspace{-0pt}}
+\makeatletter
+\newcommand{\mymakelabel}[1]{%
+	\begingroup
+	\def\@tempa{#1}%
+	\def\@tempb{\@itemlabel}%
+	\ifx\@tempa\@tempb
+	\endgroup
+	\hss \llap{$\square$}%
+	\else
+	\endgroup
+	\hss \llap{#1}%
+	\fi
+}
+\newenvironment{todolist}{%
+	\vspace*{.5em}\itemize
+	\let\makelabel\mymakelabel
+}{%
+	\enditemize\vspace*{.5em}
+}
+\makeatother
+
+%%%------------- ToDoList -------------%
+%\usepackage{mdframed} %important!
+\mdfdefinestyle{alert}{
+	innertopmargin=1.75ex,
+	innerbottommargin=1.75ex,
+	innerleftmargin=2.25ex,
+	innerrightmargin=3.75ex,
+	linewidth=3pt,
+	linecolor=A2red,
+	topline=false,
+	bottomline=false,
+	%rightline=false,
+	%backgroundcolor=GREYteal,
+	%fontcolor=white,
+	backgroundcolor=DARKteal!6,
+	fontcolor=DARKteal,
+}
+\mdfdefinestyle{example}{
+	innertopmargin=1.75ex,
+	innerbottommargin=1.75ex,
+	innerleftmargin=2.25ex,
+	innerrightmargin=3.75ex,
+	linewidth=3pt,
+	linecolor=GREYteal,
+	topline=false,
+	bottomline=false,
+	%rightline=false,
+	%backgroundcolor=GREYteal,
+	%fontcolor=white,
+	backgroundcolor=DARKteal!6,
+	fontcolor=DARKteal,
+}
 
 %%%------------- title -------------%
 \title[Metropolis A2] % short title
 			{Metropolis theme for the A2 Collaboration} % long title
 \subtitle{because we're all using different presentations so far}
-\date{Mainz, December 2017}
+\date{Mainz, June 2018}
 \author{John Doe}
 \institute[JGU Mainz]{
 	Institute for Nuclear Physics\\ 
@@ -47,11 +108,12 @@
 %%------------- TALK -------------%
 \begin{document}
 
-\maketitle
+%\maketitle
 
 \begin{frame}{Outline}
-  \setbeamertemplate{section in toc}[sections numbered]
-  \tableofcontents[hideallsubsections]
+%		\setbeamertemplate{section in toc}[sections numbered]
+%		\setbeamertemplate{subsection in toc}[subsections numbered]
+		\tableofcontents
 \end{frame}
 
 \section{Introduction \& Installation}
@@ -82,7 +144,8 @@ Then you can use it in any beamer presentation like this:
 Take a look into this demo pdf for different options or even better take a look at the original documentation of metropolis.
 \end{frame}
 
-\section{Title formats}
+\section{Theme features}
+\subsection{Title formats}
 
 \begin{frame}{Title formats}
 	This theme supports 4 different title formats:
@@ -106,7 +169,7 @@ Take a look into this demo pdf for different options or even better take a look 
 	\end{frame}
 }
 
-\section{Elements}
+\subsection{Elements}
 
 \begin{frame}[fragile]{Typography}
 	\begin{verbatim}
@@ -121,7 +184,7 @@ or show \textbf{bold} results.\end{verbatim}
 \begin{frame}[fragile]{Colours}
 	You can use some colours defined in the theme:
 	
-	These are \textbf{\textcolor{A2red}{A2red}}, \textbf{\textcolor{DARKteal}{DARKteal}}, \textbf{\textcolor{LIGHTteal}{LIGHTteal}} and \textbf{\textcolor{GREYteal}{GREYteal}}.
+	These are \textbf{\textcolor{A2red}{A2red}}, \textbf{\textcolor{A2green}{A2green}}, \textbf{\textcolor{DARKteal}{DARKteal}}, \textbf{\textcolor{LIGHTteal}{LIGHTteal}} and \textbf{\textcolor{GREYteal}{GREYteal}}.
 	
 	All colours in this theme are derived from these colours (well, including white).
 \end{frame}
@@ -199,12 +262,14 @@ optional background color.
 In your presentation you can set the footer to display information about you and your talk. A sample footer is this:
 \begin{verbatim}
 \setbeamertemplate{frame footer}{
-\insertauthor
-\hspace{1.5ex}-\hspace{1.5ex} 
-\insertshorttitle
-\ifx\insertsection\empty\else
-\hspace{1.5ex}-\hspace{1.5ex}\insertsection
-\fi
+  \insertauthor
+  \hspace{1.5ex}-\hspace{1.5ex} 
+  \insertshorttitle
+  \ifx\insertsection
+    \empty
+  \else
+    \hspace{1.5ex}-\hspace{1.5ex}\insertsection
+  \fi
 }\end{verbatim}
 
 \end{frame}
@@ -224,7 +289,7 @@ In order to display one or several logos on your titlepage (for example institut
 
 \end{frame}
 
-\section{A2 Logo}
+\subsection{A2 Logo}
 
 \begin{frame}[fragile]{A2 Logo}
 To change the A2 Logo in the upper right corner you need to edit the theme file
@@ -238,7 +303,7 @@ at (current page.north east){\includegraphics
 But be aware that this changes all presentations which will be compiled with this theme.
 \end{frame}
 
-\section{Fancy frames}
+\subsection{Fancy frames}
 
 \begin{frame}[fragile]
 You can use this:
@@ -252,6 +317,50 @@ to get \dots
 \begin{frame}[plain, standout]
 	I'm a simple slide to emphasize something important.
 \end{frame}
+
+\section{more Features which are included in this demo.tex}
+
+\begin{frame}[fragile]{To Do Lists}
+
+Fancy ToDo lists
+
+Thanks to Sascha Wagner to implement this
+\begin{todolist}
+	\item[\done] Frame the problem
+	\item Write solution
+	\item[\wontfix] profit
+\end{todolist}
+
+\begin{verbatim}
+\begin{todolist}
+  \item[\done] Frame the problem
+  \item Write solution
+  \item[\wontfix] profit
+\end{todolist}
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Boxes which fit the Blocks}
+	\begin{mdframed}[style=alert,userdefinedwidth=1\textwidth,align=center]
+		Across the centuries billions upon billions courage of our questions galaxies, vanquish the impossible.
+	\end{mdframed}
+	\begin{mdframed}[style=example,userdefinedwidth=1\textwidth,align=center]
+		As a patch of light, muse about circumnavigated, inconspicuous motes of rock and gas.
+	\end{mdframed}
+
+
+{\footnotesize  \begin{verbatim}
+\begin{mdframed}
+  [style=alert,userdefinedwidth=1\textwidth,align=center]
+    Across...
+\end{mdframed}
+\begin{mdframed}
+  [style=example,userdefinedwidth=1\textwidth,align=center]
+    As a patch...
+\end{mdframed}
+\end{verbatim}}
+\end{frame}
+
 
 \section{Conclusion}
 
